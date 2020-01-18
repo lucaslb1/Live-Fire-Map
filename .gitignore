@@ -1,3 +1,5 @@
 .idea/
 keys
+__pycache__/
+
 
