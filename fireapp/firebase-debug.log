@@ -1,0 +1,30 @@
+[debug] [2020-01-18T22:29:37.660Z] ----------------------------------------------------------------------
+[debug] [2020-01-18T22:29:37.661Z] Command:       /usr/local/Cellar/node/13.1.0/bin/node /usr/local/bin/firebase deploy --only hosting:fire-map
+[debug] [2020-01-18T22:29:37.661Z] CLI Version:   7.12.1
+[debug] [2020-01-18T22:29:37.661Z] Platform:      darwin
+[debug] [2020-01-18T22:29:37.661Z] Node Version:  v12.14.1
+[debug] [2020-01-18T22:29:37.662Z] Time:          Sat Jan 18 2020 14:29:37 GMT-0800 (Pacific Standard Time)
+[debug] [2020-01-18T22:29:37.662Z] ----------------------------------------------------------------------
+[debug] [2020-01-18T22:29:37.662Z] 
+[debug] [2020-01-18T22:29:37.669Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-18T22:29:37.670Z] > authorizing via signed-in user
+[debug] [2020-01-18T22:29:37.670Z] [iam] checking project single-edition-138423 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-01-18T22:29:37.671Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/single-edition-138423:testIamPermissions  
+
+[debug] [2020-01-18T22:29:38.240Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-18T22:29:38.242Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/single-edition-138423  
+ 
+[debug] [2020-01-18T22:29:38.409Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'single-edition-138423'...
+[info] 
+[info] i  deploying hosting
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/single-edition-138423/overview
+[debug] [2020-01-18T22:29:38.523Z] TypeError: Cannot read property 'deploys' of undefined
+    at /usr/local/lib/node_modules/firebase-tools/lib/deploy/index.js:84:36
+    at processTicksAndRejections (internal/process/task_queues.js:94:5)
+[error] 
+[error] Error: An unexpected error has occurred.
