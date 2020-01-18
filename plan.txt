@@ -1,0 +1,13 @@
+Live Fire Map
+
+1 read twittter
+  a Create a database of previous fires
+    1 time it occured
+    2 location
+      - find actual location Parse
+  b keep up with live data
+
+2 
+
+ 
+
