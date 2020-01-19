@@ -9,7 +9,6 @@ import json
 
 app = Flask(__name__)
 
-
 @app.route('/view_endpoint', methods=['GET'])
 def view_endpoint():
 
@@ -24,12 +23,13 @@ def view_endpoint():
 def check_new_tweet():
     t = Twitter(auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET, API_KEY, API_KEY_SECRET))
     recent = t.statuses.home_timeline()
-    
-    find_result = db.fireData.find({"id" : recent[1]['id_str']})
-
-    
-    return recent[1]['id_str']
-    
+    for i in range(20):
+        if(db.fireData.find({"id" : recent[i]['id_str']}).count() == 0):
+            print("------------------HERE-------------------2")
+            print(recent[i]['id_str'])
+            #db.fireData.insert_one(tweet)
+        else:
+            break
 
 @app.route('/')
 def home():
