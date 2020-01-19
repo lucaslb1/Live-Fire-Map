@@ -1,10 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from pymongo import *
 from passwords import *
 from twitter import *
 import json
 
-#client = MongoClient("mongodb+srv://zolamb:Cloud1775##@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
+#client = MongoClient("mongodb+srv://zolamb:<password>@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
 #db = client.SCFire
 
 app = Flask(__name__)
@@ -12,12 +12,15 @@ app = Flask(__name__)
 @app.route('/view_endpoint', methods=['GET'])
 def view_endpoint():
 
-    client = MongoClient("mongodb+srv://lucas:pass123@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
+    client = MongoClient("mongodb+srv://lucas:<password>@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
     db = client.SCFire
 
     collection = db.fireData
     cursor = collection.find({})
-    return str([document for document in cursor])
+    json_dict = dict()
+    for i, document in enumerate(cursor):
+        json_dict[document['id']] = {"unixtime": document["unixtime"], "timestring":document["timestring"], "address":document["address"]}
+    return jsonify(json_dict)
 
 @app.route('/check_new_tweet')
 def check_new_tweet():
