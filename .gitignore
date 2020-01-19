@@ -8,6 +8,8 @@ ideas.txt
 node_modules
 /dist
 
+passwords.py
+
 # local env files
 .env.local
 .env.*.local
