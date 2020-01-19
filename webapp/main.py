@@ -1,12 +1,24 @@
 from flask import Flask, render_template
-from pymongo import MongoClient
+from pymongo import *
 from passwords import *
 from twitter import *
+import json
 
-client = MongoClient("mongodb+srv://zolamb:"+ MONGODB_PASSWORD +"@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
-db = client.SCFire
+#client = MongoClient("mongodb+srv://zolamb:Cloud1775##@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
+#db = client.SCFire
 
 app = Flask(__name__)
+
+
+@app.route('/view_endpoint', methods=['GET'])
+def view_endpoint():
+
+    client = MongoClient("mongodb+srv://lucas:pass123@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
+    db = client.SCFire
+
+    collection = db.fireData
+    cursor = collection.find({})
+    return str([document for document in cursor])
 
 @app.route('/check_new_tweet')
 def check_new_tweet():
