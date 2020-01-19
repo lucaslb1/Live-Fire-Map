@@ -3,14 +3,13 @@
     <div class="search">
       <label>
         <gmap-autocomplete
-          @place_changed="setPlace">
+          @place_changed="setPlace" placeholder="Add a new location">
         </gmap-autocomplete>
         <button @click="addMarker">Add</button>
       </label>
       <br/>
     </div>
-    <br> <br> <br>
-    <gmap-map
+    <gmap-map class="gmap"
       :center="center"
       :zoom="13.9"
       :options="{
@@ -22,35 +21,58 @@
         fullscreenControl: true,
         disableDefaultUi: false
       }"
-      style="width:100%;  height: 800px;"
-
-    >
+      style="width:100%;  height: 800px;">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
         @click="center=m.position"
+        :icon="markerOptions"
+
       ></gmap-marker>
     </gmap-map>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+const flame = require('../../public/flame.png');
 export default {
-  name: "GoogleMap",
   data() {
     return {
-      center: { lat: 36.9841, lng: -122.0308},
+      center: { lat: 36.9741, lng: -122.0308},
       markers: [],
       places: [],
-      currentPlace: null
+      currentPlace: '',
+      res: '',
+      markerOptions: {
+      url: flame,
+      arr2: [],
+      addys: [],
+      size: {width: 60, height: 90, f: 'px', b: 'px',},
+      scaledSize: {width: 60, height: 90, f: 'px', b: 'px',},
+    },
     };
   },
 
-  mounted() {
-    this.geolocate();
+  async mounted() {
+    const lh = 'https://quantum-star-265521.appspot.com/view_endpoint';
+    await axios.get(lh).then(response => (this.res = response.data));
+    //eslint-disable-next-line
+    for (const [key, val] of Object.entries(this.res)){
+        await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+          params: {
+          address: val.address,
+          key:'AIzaSyAoV6IqyfJMAcGznrt3JOU6912GQszXoeA',
+        }
+      })
+      .then(response => this.markers.push({position: {lat: response.data.results[0].geometry.location.lat, lng: response.data.results[0].geometry.location.lng}}))
+      .catch(function (error){
+        //eslint-disable-next-line
+        console.log(error);
+      });
+    }
   },
-
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {
@@ -133,6 +155,10 @@ export default {
   left:45%;
   z-index:2;
 }
+.gmap{
+  position:absolute;
+  top:82px;
+}
 @media screen and (max-width:500px){
   
   .logo{
@@ -150,4 +176,5 @@ export default {
   }
 
 }
+
 </style>
