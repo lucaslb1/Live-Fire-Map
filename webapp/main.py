@@ -1,8 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from pymongo import *
 from passwords import *
 from twitter import *
-import json
+#import json
 
 #client = MongoClient("mongodb+srv://zolamb:Cloud1775##@scfire-6siv5.gcp.mongodb.net/test?retryWrites=true&w=majority")
 #db = client.SCFire
@@ -17,7 +17,7 @@ def view_endpoint():
 
     collection = db.fireData
     cursor = collection.find({})
-    return str([document for document in cursor])
+    return jsonify([ document in cursor])
 
 @app.route('/check_new_tweet')
 def check_new_tweet():
